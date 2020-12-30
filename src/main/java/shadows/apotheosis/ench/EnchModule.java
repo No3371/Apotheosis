@@ -110,6 +110,7 @@ public class EnchModule {
 	public static final EnchantmentType SHIELD = EnchantmentType.create("SHIELD", i -> i instanceof ShieldItem);
 	public static final EnchantmentType ANVIL = EnchantmentType.create("ANVIL", i -> i instanceof BlockItem && ((BlockItem) i).getBlock() instanceof AnvilBlock);
 	static Configuration enchInfoConfig;
+	public static int knowledgeGrantedXP = 25;
 
 	@SubscribeEvent
 	public void init(FMLCommonSetupEvent e) {
@@ -337,6 +338,8 @@ public class EnchModule {
 	public void reload(ApotheosisReloadEvent e) {
 		enchInfoConfig = new Configuration(new File(Apotheosis.configDir, "enchantments.cfg"));
 		ENCHANTMENT_INFO.clear();
+
+		knowledgeGrantedXP = enchInfoConfig.getInt("Knowledge Granted XP", "Module", 25, 0, 99999, "How many xp every drop turns into.");
 
 		for (Enchantment ench : ForgeRegistries.ENCHANTMENTS) {
 			int max = enchInfoConfig.getInt("Max Level", ench.getRegistryName().toString(), getDefaultMax(ench), 1, 127, "The max level of this enchantment - normally " + ench.getMaxLevel() + ".");

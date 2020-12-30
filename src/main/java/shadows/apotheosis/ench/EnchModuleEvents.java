@@ -115,7 +115,7 @@ public class EnchModuleEvents {
 				for (ItemEntity i : e.getDrops())
 					items += i.getItem().getCount();
 				if (items > 0) e.getDrops().clear();
-				items *= knowledge * 25;
+				items *= knowledge * EnchModule.knowledgeGrantedXP;
 				Entity ded = e.getEntityLiving();
 				while (items > 0) {
 					int i = ExperienceOrbEntity.getXPSplit(items);
