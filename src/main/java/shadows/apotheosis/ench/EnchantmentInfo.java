@@ -11,13 +11,15 @@ public class EnchantmentInfo {
 	final Enchantment ench;
 	final int maxLevel;
 	final int minLevel;
+	final float splittingChance;
 	PowerFunc maxPower;
 	PowerFunc minPower;
 
-	public EnchantmentInfo(Enchantment ench, int maxLevel, int minLevel) {
+	public EnchantmentInfo(Enchantment ench, int maxLevel, int minLevel, float splittingChance) {
 		this.ench = ench;
 		this.maxLevel = maxLevel;
 		this.minLevel = minLevel;
+		this.splittingChance = splittingChance;
 		maxPower = defaultMax(ench);
 		minPower = defaultMin(ench);
 	}
@@ -44,6 +46,10 @@ public class EnchantmentInfo {
 
 	public void setMinPower(PowerFunc minPower) {
 		this.minPower = minPower;
+	}
+
+	public float getSplittingChance() {
+		return splittingChance;
 	}
 
 	/**

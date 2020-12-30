@@ -285,20 +285,21 @@ public class EnchModule {
 		EnchantmentInfo info = ENCHANTMENT_INFO.get(ench);
 
 		if (!Apotheosis.enableEnch) {
-			return ENCHANTMENT_INFO.computeIfAbsent(ench, e -> new EnchantmentInfo(e, e.getMaxLevel(), e.getMinLevel()));
+			return ENCHANTMENT_INFO.computeIfAbsent(ench, e -> new EnchantmentInfo(e, e.getMaxLevel(), e.getMinLevel(), 0.5f));
 		}
 
 		if (enchInfoConfig == null) {
 			LOGGER.error("A mod has attempted to access enchantment information before Apotheosis init, this should not happen.");
 			Thread.dumpStack();
-			return new EnchantmentInfo(ench, ench.getMaxLevel(), ench.getMinLevel());
+			return new EnchantmentInfo(ench, ench.getMaxLevel(), ench.getMinLevel(), 0.5f);
 		}
 
 		if (info == null) {
 			int max = enchInfoConfig.getInt("Max Level", ench.getRegistryName().toString(), getDefaultMax(ench), 1, 127, "The max level of this enchantment - normally " + ench.getMaxLevel() + ".");
 			int min = enchInfoConfig.getInt("Min Level", ench.getRegistryName().toString(), ench.getMinLevel(), 1, 127, "The min level of this enchantment.");
+			float splittingChance = enchInfoConfig.getFloat("Splitting Chance", ench.getRegistryName().toString(), 0.5f, 0, 1, "The 0 - 1 chance of the enchantment get succesfully splitted by anvils.");
 			if (min > max) min = max;
-			info = new EnchantmentInfo(ench, max, min);
+			info = new EnchantmentInfo(ench, max, min, splittingChance);
 			String maxF = enchInfoConfig.getString("Max Power Function", ench.getRegistryName().toString(), "", "A function to determine the max enchanting power.  The variable \"x\" is level.  See: https://github.com/uklimaschewski/EvalEx#usage-examples");
 			if (!maxF.isEmpty()) info.setMaxPower(new ExpressionPowerFunc(maxF));
 			String minF = enchInfoConfig.getString("Min Power Function", ench.getRegistryName().toString(), "", "A function to determine the min enchanting power.");
@@ -341,7 +342,8 @@ public class EnchModule {
 			int max = enchInfoConfig.getInt("Max Level", ench.getRegistryName().toString(), getDefaultMax(ench), 1, 127, "The max level of this enchantment - normally " + ench.getMaxLevel() + ".");
 			int min = enchInfoConfig.getInt("Min Level", ench.getRegistryName().toString(), ench.getMinLevel(), 1, 127, "The min level of this enchantment.");
 			if (min > max) min = max;
-			EnchantmentInfo info = new EnchantmentInfo(ench, max, min);
+			float splittingChance = enchInfoConfig.getFloat("Splitting Chance", ench.getRegistryName().toString(), 0.5f, 0, 1, "The 0 - 1 chance of the enchantment get succesfully splitted by anvils.");
+			EnchantmentInfo info = new EnchantmentInfo(ench, max, min, splittingChance);
 			String maxF = enchInfoConfig.getString("Max Power Function", ench.getRegistryName().toString(), "", "A function to determine the max enchanting power.  The variable \"x\" is level.  See: https://github.com/uklimaschewski/EvalEx#usage-examples");
 			if (!maxF.isEmpty()) info.setMaxPower(new ExpressionPowerFunc(maxF));
 			String minF = enchInfoConfig.getString("Min Power Function", ench.getRegistryName().toString(), "", "A function to determine the min enchanting power.");

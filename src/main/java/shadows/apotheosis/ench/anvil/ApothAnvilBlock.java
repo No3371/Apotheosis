@@ -48,6 +48,8 @@ import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.registries.ForgeRegistries;
 import shadows.apotheosis.ApotheosisObjects;
 import shadows.apotheosis.advancements.AdvancementTriggers;
+import shadows.apotheosis.ench.EnchModule;
+import shadows.apotheosis.ench.EnchantmentInfo;
 
 public class ApothAnvilBlock extends AnvilBlock {
 
@@ -158,6 +160,7 @@ public class ApothAnvilBlock extends AnvilBlock {
 				CompoundNBT tag = (CompoundNBT) nbt;
 				int level = tag.getInt("lvl");
 				Enchantment enchant = ForgeRegistries.ENCHANTMENTS.getValue(new ResourceLocation(tag.getString("id")));
+				if (world.rand.nextFloat() > EnchModule.getEnchInfo(enchant).getSplittingChance()) continue;
 				ItemStack book = EnchantedBookItem.getEnchantedItemStack(new EnchantmentData(enchant, level));
 				Block.spawnAsEntity(world, pos.up(), book);
 			}
