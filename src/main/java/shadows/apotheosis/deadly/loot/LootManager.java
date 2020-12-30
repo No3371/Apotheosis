@@ -32,6 +32,7 @@ import shadows.apotheosis.deadly.affix.AffixHelper;
 import shadows.apotheosis.deadly.affix.Affixes;
 import shadows.apotheosis.deadly.affix.modifiers.AffixModifier;
 import shadows.apotheosis.deadly.affix.modifiers.Modifiers;
+import shadows.apotheosis.deadly.config.DeadlyConfig;
 
 /**
  * Core loot registry.  Handles the management of all Affixes, LootEntries, and generation of loot items.
@@ -111,7 +112,7 @@ public class LootManager extends JsonReloadListener {
 			AffixHelper.applyAffix(stack, a, a.apply(stack, rand, affixes.get(a)));
 		}
 
-		if (rarity.ordinal() >= LootRarity.MYTHIC.ordinal()) {
+		if (DeadlyConfig.allowUnbreakableLoot && rarity.ordinal() >= LootRarity.MYTHIC.ordinal()) {
 			CompoundNBT tag = stack.getOrCreateTag();
 			tag.putBoolean("Unbreakable", true);
 		}
