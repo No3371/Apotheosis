@@ -71,7 +71,10 @@ public class ApothSpawnerBlock extends SpawnerBlock {
 			ItemStack s = new ItemStack(this);
 			if (te != null) te.write(s.getOrCreateChildTag("BlockEntityTag"));
 			spawnAsEntity(world, pos, s);
-			player.getHeldItemMainhand().damageItem(SpawnerModule.spawnerSilkDamage, player, pl -> pl.sendBreakAnimation(EquipmentSlotType.MAINHAND));
+			ItemStack i = player.getHeldItemMainhand();
+			if (i.getMaxDamage() - i.getDamage() <= SpawnerModule.spawnerSilkDamage && i.hasTag() && i.getOrCreateTag().contains("Unbreakable"))
+				i.getOrCreateTag().remove("Unbreakable");
+			i.damageItem(SpawnerModule.spawnerSilkDamage, player, pl -> pl.sendBreakAnimation(EquipmentSlotType.MAINHAND));
 		}
 		world.setBlockState(pos, Blocks.AIR.getDefaultState(), world.isRemote ? 11 : 3);
 		super.harvestBlock(world, player, pos, state, te, stack);

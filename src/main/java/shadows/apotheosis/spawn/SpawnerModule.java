@@ -45,6 +45,7 @@ public class SpawnerModule {
 	public static final Logger LOG = LogManager.getLogger("Apotheosis : Spawner");
 	public static int spawnerSilkLevel = 1;
 	public static int spawnerSilkDamage = 100;
+	public static boolean forceBreakSilk = false;
 
 	@SubscribeEvent
 	public void setup(FMLCommonSetupEvent e) {
@@ -102,6 +103,7 @@ public class SpawnerModule {
 		Configuration config = new Configuration(new File(Apotheosis.configDir, "spawner.cfg"));
 		spawnerSilkLevel = config.getInt("Spawner Silk Level", "general", 1, -1, 127, "The level of silk touch needed to harvest a spawner.  Set to -1 to disable, 0 to always drop.  The enchantment module can increase the max level of silk touch.");
 		spawnerSilkDamage = config.getInt("Spawner Silk Damage", "general", 100, 0, 100000, "The durability damage dealt to an item that silk touches a spawner.");
+		forceBreakSilk = config.getBoolean("Spawner Silk Force Break", "general", false, "Breaks silk touch equipment even if it's tagged Unbreakable");
 		SpawnerModifiers.reload(config);
 		if (e == null && config.hasChanged()) config.save();
 	}
