@@ -47,6 +47,7 @@ public class VillageModule {
 	public static Configuration config;
 
 	public static boolean enableNewTrades = true;
+	public static boolean enableMerchantEquipmentsTrades = true;
 
 	@SubscribeEvent
 	public void setup(FMLCommonSetupEvent e) {
@@ -55,7 +56,8 @@ public class VillageModule {
 		Map<BlockState, PointOfInterestType> types = ObfuscationReflectionHelper.getPrivateValue(PointOfInterestType.class, null, "field_221073_u");
 		types.put(Blocks.FLETCHING_TABLE.getDefaultState(), PointOfInterestType.FLETCHER);
 		config = new Configuration(new File(Apotheosis.configDir, "village.cfg"));
-		enableNewTrades = config.getBoolean("Enable New Trades", "Wanderer", true, "If new trades are added to the wandering merchant.");
+		enableNewTrades = config.getBoolean("Enable New Items Trades", "Wanderer", true, "If new trades are added to the wandering merchant.");
+		enableMerchantEquipmentsTrades = config.getBoolean("Enable Affixed Equipments Trades", "Wanderer", true, "If new Equipments are added to the wandering merchant.");
 		if (config.hasChanged()) config.save();
 	}
 
