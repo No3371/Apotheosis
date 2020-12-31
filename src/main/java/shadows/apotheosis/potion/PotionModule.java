@@ -48,6 +48,7 @@ public class PotionModule {
 	public static final ResourceLocation POTION_TEX = new ResourceLocation(Apotheosis.MODID, "textures/potions.png");
 
 	static int knowledgeMult = 4;
+	static bool enableCharmsRecipe = true;
 
 	@SubscribeEvent
 	public void preInit(ApotheosisConstruction e) {
@@ -99,7 +100,7 @@ public class PotionModule {
 		Ingredient res = Apotheosis.potionIngredient(ApotheosisObjects.RESISTANCE);
 		Ingredient regen = Apotheosis.potionIngredient(Potions.STRONG_REGENERATION);
 		Apotheosis.HELPER.addShaped(Items.ENCHANTED_GOLDEN_APPLE, 3, 3, fireRes, regen, fireRes, abs, Items.GOLDEN_APPLE, abs, res, abs, res);
-		RecipeHelper.addRecipe(new PotionCharmRecipe());
+		if (enableCharmsRecipe) RecipeHelper.addRecipe(new PotionCharmRecipe());
 		MinecraftForge.EVENT_BUS.addListener(this::drops);
 		MinecraftForge.EVENT_BUS.addListener(this::xp);
 		MinecraftForge.EVENT_BUS.addListener(this::reload);
@@ -182,6 +183,7 @@ public class PotionModule {
 	public void reload(ApotheosisReloadEvent e) {
 		Configuration config = new Configuration(new File(Apotheosis.configDir, "potion.cfg"));
 		knowledgeMult = config.getInt("Knowledge XP Multiplier", "general", knowledgeMult, 1, Integer.MAX_VALUE, "The strength of Ancient Knowledge.  This multiplier determines how much additional xp is granted.");
+		enableCharmsRecipe = config.getBoolean("Enable Potion Charms Recipe", "general", true);
 		if (e == null && config.hasChanged()) config.save();
 	}
 
