@@ -61,6 +61,7 @@ import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+import shadows.apotheosis.deadly.DeadlyModule;
 import shadows.apotheosis.deadly.config.DeadlyConfig;
 import shadows.apotheosis.deadly.gen.BossItem;
 import shadows.apotheosis.deadly.loot.LootEntry;
@@ -334,6 +335,6 @@ public class AffixEvents {
 
 	@SubscribeEvent
 	public void trades(WandererTradesEvent e) {
-		e.getRareTrades().add(new AffixTrade());
+		if (DeadlyConfig.merchantsSellRandomAffixedLoot) e.getRareTrades().add(new AffixTrade());
 	}
 }

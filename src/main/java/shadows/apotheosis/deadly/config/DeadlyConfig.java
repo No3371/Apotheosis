@@ -52,6 +52,7 @@ public class DeadlyConfig {
 	public static float swarmSpawnerChance = .20F;
 	public static float bossChance = .07F;
 	public static boolean allowUnbreakableLoot = true;
+	public static boolean merchantsSellRandomAffixedLoot = true;
 
 	public static Block bossFillerBlock = Blocks.RED_SANDSTONE;
 
@@ -99,6 +100,7 @@ public class DeadlyConfig {
 		surfaceBossChance = c.getInt("Surface Boss Chance", DeadlyConstants.BOSSES, surfaceBossChance, 1, 500000, "The 1/n chance that a naturally spawned mob that can see the sky is transformed into a boss.");
 		randomAffixItem = c.getInt("Random Affix Chance", DeadlyConstants.AFFIXES, randomAffixItem, 1, 500000, "The 1/n chance that a naturally spawned mob will be granted an affix item.");
 		allowUnbreakableLoot = c.getBoolean("Allow Unbreakable Loots", DeadlyConstants.AFFIXES, true, "Will mystic tier loot be unbreakable?");
+		merchantsSellRandomAffixedLoot = c.getBoolean("Merchants Sell Random Affixed Loots", DeadlyConstants.AFFIXES, true, "Will merchants come with random affixed loot trades?");
 		surfaceBossLightning = c.getBoolean("Surface Boss Lightning", DeadlyConstants.BOSSES, true, "If a lightning bolt strikes when a surface boss spawn occurs.");
 		bossRarityOffset = c.getInt("Boss Rarity Offset", DeadlyConstants.BOSSES, bossRarityOffset, 0, 999, "The rarity offset for boss item generation.  400 guarantees uncommon, 700 guarantees rare, 800 guarantees epic, 950 guarantees mythic.");
 
