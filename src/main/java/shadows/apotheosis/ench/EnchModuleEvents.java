@@ -1,7 +1,9 @@
 package shadows.apotheosis.ench;
 
 import java.lang.reflect.Method;
+import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.google.common.collect.ImmutableMap;
 
@@ -49,9 +51,11 @@ public class EnchModuleEvents {
 		if (!EnchantmentHelper.getEnchantments(e.getLeft()).isEmpty()) {
 			if (e.getRight().getItem() == Items.COBWEB) {
 				ItemStack stack = e.getLeft().copy();
-				EnchantmentHelper.setEnchantments(EnchantmentHelper.getEnchantments(stack).entrySet().stream().filter(ent -> ent.getKey().isCurse()).collect(Collectors.toMap(ent -> ent.getKey(), ent -> ent.getValue())), stack);
-				e.setCost(1);
-				e.setMaterialCost(1);
+				Stream<Map.Entry<Enchantment, Integer>> curses = EnchantmentHelper.getEnchantments(stack).entrySet().stream().filter(ent -> ent.getKey().isCurse());
+				int count = (int) curses.count();
+				EnchantmentHelper.setEnchantments(curses.collect(Collectors.toMap(ent -> ent.getKey(), ent -> ent.getValue())), stack);
+				e.setCost(count * EnchModule.xpCostPerCurseRemoved);
+				e.setMaterialCost(count * EnchModule.webCostPerCurseRemoved);
 				e.setOutput(stack);
 			} else if (e.getRight().getItem() == ApotheosisObjects.PRISMATIC_WEB) {
 				ItemStack stack = e.getLeft().copy();

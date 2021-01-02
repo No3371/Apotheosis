@@ -113,6 +113,8 @@ public class EnchModule {
 	public static int knowledgeGrantedXP = 25;
 	public static float scrappingThreshold = 0.1f;
 	public static float altarThreshold = 0.1f;
+	public static int webCostPerCurseRemoved = 1;
+	public static int xpCostPerCurseRemoved = 5;
 
 	@SubscribeEvent
 	public void init(FMLCommonSetupEvent e) {
@@ -344,6 +346,8 @@ public class EnchModule {
 		knowledgeGrantedXP = enchInfoConfig.getInt("Knowledge Granted XP", "Module", 25, 0, 99999, "How many xp every drop turns into.");
 		scrappingThreshold = enchInfoConfig.getFloat("Scrapping Durability Threshold", "_general", 0.5f, 0, 1, "The durability ratio required for a item to be accepted by scrapping.");
 		altarThreshold = enchInfoConfig.getFloat("Altar Durability Threshold", "_general", 0.5f, 0, 1, "The durability ratio required for a item to be accpeted by altars.");
+		webCostPerCurseRemoved = enchInfoConfig.getInt("Web Cost Per Curse Removed", "_general", 1, 0, 99999, "How many cobweb items are required to remove a curse.");
+		xpCostPerCurseRemoved = enchInfoConfig.getInt("XP Cost Per Curse Removed", "_general", 1, 0, 99999, "How many xp levels are required to remove a curse.");
 
 		for (Enchantment ench : ForgeRegistries.ENCHANTMENTS) {
 			int max = enchInfoConfig.getInt("Max Level", ench.getRegistryName().toString(), getDefaultMax(ench), 1, 127, "The max level of this enchantment - normally " + ench.getMaxLevel() + ".");
