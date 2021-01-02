@@ -111,6 +111,7 @@ public class EnchModule {
 	public static final EnchantmentType ANVIL = EnchantmentType.create("ANVIL", i -> i instanceof BlockItem && ((BlockItem) i).getBlock() instanceof AnvilBlock);
 	static Configuration enchInfoConfig;
 	public static int knowledgeGrantedXP = 25;
+	public static float altarThreshold = 0.1f;
 
 	@SubscribeEvent
 	public void init(FMLCommonSetupEvent e) {
@@ -340,6 +341,7 @@ public class EnchModule {
 		ENCHANTMENT_INFO.clear();
 
 		knowledgeGrantedXP = enchInfoConfig.getInt("Knowledge Granted XP", "Module", 25, 0, 99999, "How many xp every drop turns into.");
+		altarThreshold = enchInfoConfig.getFloat("Altar Durability Threshold", "_general", 0.5f, 0, 1, "The durability ratio required for a item to be accpeted by altars.");
 
 		for (Enchantment ench : ForgeRegistries.ENCHANTMENTS) {
 			int max = enchInfoConfig.getInt("Max Level", ench.getRegistryName().toString(), getDefaultMax(ench), 1, 127, "The max level of this enchantment - normally " + ench.getMaxLevel() + ".");

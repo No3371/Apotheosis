@@ -52,7 +52,7 @@ public class SeaAltarTile extends TileEntity implements ITickableTileEntity {
 		if (world.isRemote) return;
 		if (!inv.getStackInSlot(4).isEmpty()) return;
 		for (int i = 0; i < 4; i++) {
-			if (inv.getStackInSlot(i).isEmpty()) {
+			if (inv.getStackInSlot(i).isEmpty() || inv.getStackInSlot(i).getDamage() / inv.getStackInSlot(i).getMaxDamage() > EnchModule.altarThreshold) {
 				target = ItemStack.EMPTY;
 				targetXP = 0;
 				return;
