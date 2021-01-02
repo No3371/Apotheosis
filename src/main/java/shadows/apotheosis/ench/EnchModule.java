@@ -115,6 +115,9 @@ public class EnchModule {
 	public static float altarThreshold = 0.1f;
 	public static int webCostPerCurseRemoved = 1;
 	public static int xpCostPerCurseRemoved = 5;
+	public static boolean depthMinerByDepth = true;
+	public static int depthMinerThreshold = 25;
+	public static float depthMinerFactor = 0.1f;
 
 	@SubscribeEvent
 	public void init(FMLCommonSetupEvent e) {
@@ -348,6 +351,9 @@ public class EnchModule {
 		altarThreshold = enchInfoConfig.getFloat("Altar Durability Threshold", "_general", 0.5f, 0, 1, "The durability ratio required for a item to be accpeted by altars.");
 		webCostPerCurseRemoved = enchInfoConfig.getInt("Web Cost Per Curse Removed", "_general", 1, 0, 99999, "How many cobweb items are required to remove a curse.");
 		xpCostPerCurseRemoved = enchInfoConfig.getInt("XP Cost Per Curse Removed", "_general", 1, 0, 99999, "How many xp levels are required to remove a curse.");
+		depthMinerByDepth = enchInfoConfig.getBoolean("Depth Miner modify mining speed by depth", "_enchants", false , "The original depth miner set digging speed to a fixed value, this makes it mine faster when being deeper underground.");
+		depthMinerThreshold = enchInfoConfig.getInt("Depth Miner effect threshold", "_enchants", 48, 0, 255, "Depth Miner enabled When under this altitude.");
+		depthMinerFactor = enchInfoConfig.getFloat("Depth Miner scale", "_enchants", 0.5f, 0, 10, "How much digging speed does it provide per block height down.");
 
 		for (Enchantment ench : ForgeRegistries.ENCHANTMENTS) {
 			int max = enchInfoConfig.getInt("Max Level", ench.getRegistryName().toString(), getDefaultMax(ench), 1, 127, "The max level of this enchantment - normally " + ench.getMaxLevel() + ".");

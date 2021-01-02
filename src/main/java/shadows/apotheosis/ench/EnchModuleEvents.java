@@ -167,7 +167,13 @@ public class EnchModuleEvents {
 		if (depth > 0) {
 			if (stack.getDestroySpeed(e.getState()) > 1.0F) {
 				float hardness = e.getState().getBlockHardness(e.getPlayer().world, e.getPos());
-				e.setNewSpeed(Math.min(29.99F, 7.5F + 4.5F * depth) * hardness);
+				if (EnchModule.depthMinerByDepth)
+				{
+					double y = e.getPlayer().getPosY();
+					if (y < EnchModule.depthMinerThreshold)
+						e.setNewSpeed((float) Math.min(29.99F, e.getNewSpeed() + EnchModule.depthMinerFactor * (EnchModule.depthMinerThreshold - y) * hardness));
+				}
+				else e.setNewSpeed(Math.min(29.99F, 7.5F + 4.5F * depth) * hardness);
 			}
 		}
 	}
