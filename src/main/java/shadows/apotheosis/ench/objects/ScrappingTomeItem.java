@@ -23,6 +23,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import shadows.apotheosis.Apotheosis;
+import shadows.apotheosis.ench.EnchModule;
 
 public class ScrappingTomeItem extends BookItem {
 
@@ -54,7 +55,7 @@ public class ScrappingTomeItem extends BookItem {
 	public static boolean updateAnvil(AnvilUpdateEvent ev) {
 		ItemStack weapon = ev.getLeft();
 		ItemStack book = ev.getRight();
-		if (!(book.getItem() instanceof ScrappingTomeItem) || book.isEnchanted() || !weapon.isEnchanted()) return false;
+		if (!(book.getItem() instanceof ScrappingTomeItem) || book.isEnchanted() || !weapon.isEnchanted() || weapon.getDamage() / weapon.getMaxDamage() > EnchModule.scrappingThreshold) return false;
 
 		Map<Enchantment, Integer> wepEnch = EnchantmentHelper.getEnchantments(weapon);
 		int size = MathHelper.ceil(wepEnch.size() / 2D);
