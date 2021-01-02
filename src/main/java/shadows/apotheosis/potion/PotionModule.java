@@ -48,8 +48,8 @@ public class PotionModule {
 	public static final ResourceLocation POTION_TEX = new ResourceLocation(Apotheosis.MODID, "textures/potions.png");
 
 	static int knowledgeMult = 4;
-	static bool enableCharmsRecipe = true;
-	static bool enableKnowledgeRecipe = true;
+	static boolean enableCharmsRecipe = true;
+	static boolean enableKnowledgeRecipe = true;
 
 	@SubscribeEvent
 	public void preInit(ApotheosisConstruction e) {
@@ -90,9 +90,12 @@ public class PotionModule {
 		PotionBrewing.addMix(ApotheosisObjects.WITHER, Items.REDSTONE, ApotheosisObjects.LONG_WITHER);
 		PotionBrewing.addMix(ApotheosisObjects.WITHER, Items.GLOWSTONE_DUST, ApotheosisObjects.STRONG_WITHER);
 
-		if (enableKnowledgeRecipe) PotionBrewing.addMix(Potions.AWKWARD, Items.EXPERIENCE_BOTTLE, ApotheosisObjects.T_KNOWLEDGE);
-		PotionBrewing.addMix(ApotheosisObjects.T_KNOWLEDGE, Items.REDSTONE, ApotheosisObjects.LONG_KNOWLEDGE);
-		PotionBrewing.addMix(ApotheosisObjects.T_KNOWLEDGE, Items.EXPERIENCE_BOTTLE, ApotheosisObjects.STRONG_KNOWLEDGE);
+		if (enableKnowledgeRecipe)
+		{
+			PotionBrewing.addMix(Potions.AWKWARD, Items.EXPERIENCE_BOTTLE, ApotheosisObjects.T_KNOWLEDGE);
+			PotionBrewing.addMix(ApotheosisObjects.T_KNOWLEDGE, Items.REDSTONE, ApotheosisObjects.LONG_KNOWLEDGE);
+			PotionBrewing.addMix(ApotheosisObjects.T_KNOWLEDGE, Items.EXPERIENCE_BOTTLE, ApotheosisObjects.STRONG_KNOWLEDGE);
+		}
 
 		PotionBrewing.addMix(Potions.AWKWARD, ApotheosisObjects.LUCKY_FOOT, Potions.LUCK);
 
@@ -184,8 +187,8 @@ public class PotionModule {
 	public void reload(ApotheosisReloadEvent e) {
 		Configuration config = new Configuration(new File(Apotheosis.configDir, "potion.cfg"));
 		knowledgeMult = config.getInt("Knowledge XP Multiplier", "general", knowledgeMult, 1, Integer.MAX_VALUE, "The strength of Ancient Knowledge.  This multiplier determines how much additional xp is granted.");
-		enableCharmsRecipe = config.getBoolean("Enable Potion Charms Recipe", "general", true);
-		enableKnowledgeRecipe = config.getBoolean("Enable Knowledge Brewing", "general", true);
+		enableCharmsRecipe = config.getBoolean("Enable Potion Charms Recipe", "general", true, "");
+		enableKnowledgeRecipe = config.getBoolean("Enable Knowledge Brewing", "general", true, "");
 		if (e == null && config.hasChanged()) config.save();
 	}
 
