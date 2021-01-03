@@ -171,7 +171,7 @@ public class EnchModuleEvents {
 				{
 					double y = e.getPlayer().getPosY();
 					if (y < EnchModule.depthMinerThreshold)
-						e.setNewSpeed((float) Math.min(29.99F, e.getNewSpeed() + EnchModule.depthMinerFactor * (EnchModule.depthMinerThreshold - y) * hardness));
+						e.setNewSpeed((float) Math.min(29.99F, e.getNewSpeed() + depth * EnchModule.depthMinerFactor * (EnchModule.depthMinerThreshold - y) * hardness));
 				}
 				else e.setNewSpeed(Math.min(29.99F, 7.5F + 4.5F * depth) * hardness);
 			}

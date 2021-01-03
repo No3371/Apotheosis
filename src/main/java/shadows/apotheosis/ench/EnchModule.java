@@ -305,8 +305,8 @@ public class EnchModule {
 		if (info == null) {
 			int max = enchInfoConfig.getInt("Max Level", ench.getRegistryName().toString(), getDefaultMax(ench), 1, 127, "The max level of this enchantment - normally " + ench.getMaxLevel() + ".");
 			int min = enchInfoConfig.getInt("Min Level", ench.getRegistryName().toString(), ench.getMinLevel(), 1, 127, "The min level of this enchantment.");
-			float splittingChance = enchInfoConfig.getFloat("Splitting Chance", ench.getRegistryName().toString(), 0.5f, 0, 1, "The 0 - 1 chance of the enchantment get succesfully splitted by anvils.");
 			if (min > max) min = max;
+			float splittingChance = enchInfoConfig.getFloat("Splitting Chance", ench.getRegistryName().toString(), 0.5f, 0, 1, "The 0 - 1 chance of the enchantment get succesfully splitted by anvils.");
 			info = new EnchantmentInfo(ench, max, min, splittingChance);
 			String maxF = enchInfoConfig.getString("Max Power Function", ench.getRegistryName().toString(), "", "A function to determine the max enchanting power.  The variable \"x\" is level.  See: https://github.com/uklimaschewski/EvalEx#usage-examples");
 			if (!maxF.isEmpty()) info.setMaxPower(new ExpressionPowerFunc(maxF));
@@ -346,7 +346,7 @@ public class EnchModule {
 		enchInfoConfig = new Configuration(new File(Apotheosis.configDir, "enchantments.cfg"));
 		ENCHANTMENT_INFO.clear();
 
-		knowledgeGrantedXP = enchInfoConfig.getInt("Knowledge Granted XP", "Module", 25, 0, 99999, "How many xp every drop turns into.");
+		knowledgeGrantedXP = enchInfoConfig.getInt("Knowledge Granted XP", "_general", 25, 0, 99999, "How many xp every drop turns into.");
 		scrappingThreshold = enchInfoConfig.getFloat("Scrapping Durability Threshold", "_general", 0.5f, 0, 1, "The durability ratio required for a item to be accepted by scrapping.");
 		altarThreshold = enchInfoConfig.getFloat("Altar Durability Threshold", "_general", 0.5f, 0, 1, "The durability ratio required for a item to be accpeted by altars.");
 		webCostPerCurseRemoved = enchInfoConfig.getInt("Web Cost Per Curse Removed", "_general", 1, 0, 99999, "How many cobweb items are required to remove a curse.");
