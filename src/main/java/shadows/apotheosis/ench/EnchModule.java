@@ -115,6 +115,7 @@ public class EnchModule {
 	public static boolean depthMinerByDepth = true;
 	public static int depthMinerThreshold = 25;
 	public static float depthMinerFactor = 0.1f;
+	public static boolean mahoutsukaiCompatForbidProjections;
 
 	@SubscribeEvent
 	public void init(FMLCommonSetupEvent e) {
@@ -352,6 +353,7 @@ public class EnchModule {
 		depthMinerByDepth = enchInfoConfig.getBoolean("Depth Miner modify mining speed by depth", "_enchants", false , "The original depth miner set digging speed to a fixed value, this makes it mine faster when being deeper underground.");
 		depthMinerThreshold = enchInfoConfig.getInt("Depth Miner effect threshold", "_enchants", 48, 0, 255, "Depth Miner enabled When under this altitude.");
 		depthMinerFactor = enchInfoConfig.getFloat("Depth Miner scale", "_enchants", 0.5f, 0, 10, "How much digging speed does it provide per block height down.");
+		mahoutsukaiCompatForbidProjections = enchInfoConfig.getBoolean("Forbid Mahoutsukai Projections", "_general", true , "Forbid mahoutsukai projections to be used by enchantments related mechanics.");
 
 		for (Enchantment ench : ForgeRegistries.ENCHANTMENTS) {
 			int max = enchInfoConfig.getInt("Max Level", ench.getRegistryName().toString(), getDefaultMax(ench), 1, 127, "The max level of this enchantment - normally " + ench.getMaxLevel() + ".");

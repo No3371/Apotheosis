@@ -20,6 +20,7 @@ import net.minecraft.inventory.container.RepairContainer;
 import net.minecraft.item.BoneMealItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.tileentity.TileEntity;
@@ -49,6 +50,11 @@ public class EnchModuleEvents {
 	@SubscribeEvent
 	public void anvilEvent(AnvilUpdateEvent e) {
 		if (!EnchantmentHelper.getEnchantments(e.getLeft()).isEmpty()) {
+			if (EnchModule.mahoutsukaiCompatForbidProjections)
+			{
+				CompoundNBT nbt = e.getLeft().getTag();
+				if (nbt != null && nbt.contains("MAHOUTSUKAI_PROJECTION") && nbt.getBoolean("MAHOUTSUKAI_PROJECTION")) return;
+			}
 			if (e.getRight().getItem() == Items.COBWEB) {
 				ItemStack stack = e.getLeft().copy();
 				Stream<Map.Entry<Enchantment, Integer>> curses = EnchantmentHelper.getEnchantments(stack).entrySet().stream().filter(ent -> ent.getKey().isCurse());
