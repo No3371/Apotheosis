@@ -79,7 +79,7 @@ public class EnchModuleEvents {
 			EnchantmentHelper.setEnchantments(EnchantmentHelper.getEnchantments(e.getLeft()), out);
 			out.setCount(1);
 			e.setOutput(out);
-			e.setCost(5 + EnchantmentHelper.getEnchantmentLevel(Enchantments.UNBREAKING, e.getLeft()) + EnchantmentHelper.getEnchantmentLevel(ApotheosisObjects.SPLITTING, e.getLeft()) * 2);
+			e.setCost(5 + EnchantmentHelper.getEnchantmentLevel(Enchantments.UNBREAKING, e.getLeft()) * 2 + EnchantmentHelper.getEnchantmentLevel(ApotheosisObjects.SPLITTING, e.getLeft()) * 3);
 			e.setMaterialCost(1);
 			return;
 		}
@@ -94,7 +94,7 @@ public class EnchModuleEvents {
 			EnchantmentHelper.setEnchantments(ImmutableMap.of(ench, leftLvl + 1), out);
 			out.setCount(1);
 			e.setOutput(out);
-			e.setCost(1);
+			e.setCost(10);
 			e.setMaterialCost(1);
 			return;
 		}

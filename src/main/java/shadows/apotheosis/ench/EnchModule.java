@@ -346,8 +346,8 @@ public class EnchModule {
 		ENCHANTMENT_INFO.clear();
 
 		knowledgeGrantedXP = enchInfoConfig.getInt("Knowledge Granted XP", "_general", 25, 0, 99999, "How many xp every drop turns into.");
-		scrappingThreshold = enchInfoConfig.getFloat("Scrapping Durability Threshold", "_general", 0.5f, 0, 1, "The durability ratio required for a item to be accepted by scrapping.");
-		altarThreshold = enchInfoConfig.getFloat("Altar Durability Threshold", "_general", 0.5f, 0, 1, "The durability ratio required for a item to be accpeted by altars.");
+		scrappingThreshold = enchInfoConfig.getFloat("Scrapping Durability Threshold", "_general", 0.1f, 0, 1, "The durability ratio required for a item to be accepted by scrapping.");
+		altarThreshold = enchInfoConfig.getFloat("Altar Durability Threshold", "_general", 0.1f, 0, 1, "The durability ratio required for a item to be accpeted by altars.");
 		webCostPerCurseRemoved = enchInfoConfig.getInt("Web Cost Per Curse Removed", "_general", 1, 0, 99999, "How many cobweb items are required to remove a curse.");
 		xpCostPerCurseRemoved = enchInfoConfig.getInt("XP Cost Per Curse Removed", "_general", 1, 0, 99999, "How many xp levels are required to remove a curse.");
 		depthMinerByDepth = enchInfoConfig.getBoolean("Depth Miner modify mining speed by depth", "_enchants", false , "The original depth miner set digging speed to a fixed value, this makes it mine faster when being deeper underground.");
