@@ -12,14 +12,16 @@ public class EnchantmentInfo {
 	final int maxLevel;
 	final int minLevel;
 	final float splittingChance;
+	final float obliterationChance;
 	PowerFunc maxPower;
 	PowerFunc minPower;
 
-	public EnchantmentInfo(Enchantment ench, int maxLevel, int minLevel, float splittingChance) {
+	public EnchantmentInfo(Enchantment ench, int maxLevel, int minLevel, float splittingChance, float obliterationChance) {
 		this.ench = ench;
 		this.maxLevel = maxLevel;
 		this.minLevel = minLevel;
 		this.splittingChance = splittingChance;
+		this.obliterationChance = obliterationChance;
 		maxPower = defaultMax(ench);
 		minPower = defaultMin(ench);
 	}
@@ -52,6 +54,9 @@ public class EnchantmentInfo {
 		return splittingChance;
 	}
 
+	public float getObliterationChance() {
+		return obliterationChance;
+	}
 	/**
 	 * Simple int to int function, used for converting a level into a required enchanting power.
 	 */
