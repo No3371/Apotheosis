@@ -61,6 +61,7 @@ public class PotionModule {
 
 	@SubscribeEvent
 	public void init(FMLCommonSetupEvent e) {
+		reload(null);
 		PotionBrewing.addMix(Potions.AWKWARD, Items.SHULKER_SHELL, ApotheosisObjects.RESISTANCE);
 		PotionBrewing.addMix(ApotheosisObjects.RESISTANCE, Items.REDSTONE, ApotheosisObjects.LONG_RESISTANCE);
 		PotionBrewing.addMix(ApotheosisObjects.RESISTANCE, Items.GLOWSTONE_DUST, ApotheosisObjects.STRONG_RESISTANCE);
