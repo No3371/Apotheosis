@@ -154,34 +154,31 @@ public class ApothAnvilBlock extends AnvilBlock {
 	}
 
 	protected boolean handleSplitting(World world, BlockPos pos, int split, ItemEntity entity, ListNBT enchants) {
-		if (world.rand.nextFloat() < 0.2F * split) {
-			entity.remove();
-			for (INBT nbt : enchants) {
-				CompoundNBT tag = (CompoundNBT) nbt;
-				int level = tag.getInt("lvl");
-				Enchantment enchant = ForgeRegistries.ENCHANTMENTS.getValue(new ResourceLocation(tag.getString("id")));
-				if (world.rand.nextFloat() > EnchModule.getEnchInfo(enchant).getSplittingChance()) continue;
-				ItemStack book = EnchantedBookItem.getEnchantedItemStack(new EnchantmentData(enchant, level));
-				Block.spawnAsEntity(world, pos.up(), book);
-			}
-			world.getEntitiesWithinAABB(ServerPlayerEntity.class, new AxisAlignedBB(pos).grow(5, 5, 5), EntityPredicates.NOT_SPECTATING).forEach(p -> {
-				AdvancementTriggers.SPLIT_BOOK.trigger(p.getAdvancements());
-			});
+		entity.remove();
+		for (INBT nbt : enchants) {
+			CompoundNBT tag = (CompoundNBT) nbt;
+			int level = tag.getInt("lvl");
+			Enchantment enchant = ForgeRegistries.ENCHANTMENTS.getValue(new ResourceLocation(tag.getString("id")));
+			if (world.rand.nextFloat() > EnchModule.getEnchInfo(enchant).getSplittingChance() * 0.2F * split) continue;
+			ItemStack book = EnchantedBookItem.getEnchantedItemStack(new EnchantmentData(enchant, level));
+			Block.spawnAsEntity(world, pos.up(), book);
 		}
+		world.getEntitiesWithinAABB(ServerPlayerEntity.class, new AxisAlignedBB(pos).grow(5, 5, 5), EntityPredicates.NOT_SPECTATING).forEach(p -> {
+			AdvancementTriggers.SPLIT_BOOK.trigger(p.getAdvancements());
+		});
 		return true;
 	}
 
 	protected boolean handleObliteration(World world, BlockPos pos, int oblit, ItemEntity entity, ListNBT enchants) {
-		if (world.rand.nextFloat() < 0.2F * oblit) {
-			CompoundNBT nbt = enchants.getCompound(0);
-			int level = nbt.getInt("lvl") - 1;
-			if (level <= 0) return false;
-			Enchantment enchant = ForgeRegistries.ENCHANTMENTS.getValue(new ResourceLocation(nbt.getString("id")));
-			ItemStack book = EnchantedBookItem.getEnchantedItemStack(new EnchantmentData(enchant, level));
-			entity.remove();
-			Block.spawnAsEntity(world, pos.up(), book);
-			Block.spawnAsEntity(world, pos.up(), book.copy());
-		}
+		CompoundNBT nbt = enchants.getCompound(0);
+		int level = nbt.getInt("lvl") - 1;
+		if (level <= 0) return false;
+		Enchantment enchant = ForgeRegistries.ENCHANTMENTS.getValue(new ResourceLocation(nbt.getString("id")));
+		ItemStack book = EnchantedBookItem.getEnchantedItemStack(new EnchantmentData(enchant, level));
+		entity.remove();
+		Block.spawnAsEntity(world, pos.up(), book);
+		if (world.rand.nextFloat() > EnchModule.getEnchInfo(enchant).getSplittingChance() * 0.2F * oblit) return true;
+		Block.spawnAsEntity(world, pos.up(), book.copy());
 		return true;
 	}
 }
